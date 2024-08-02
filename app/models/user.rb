@@ -40,6 +40,7 @@ class User < ApplicationRecord
   has_many :sessions
   has_many :shoes, through: :sessions
   has_many :spots
+  has_many :hands, through: :spots
 
   # Send mail through activejob
   def send_devise_notification(notification, *args)

@@ -16,10 +16,10 @@ class PlayerActionsService
 		@spot.update! insurance: false
 	end
 
-	def double_down
+	def double
 		@spot.double = true
 		hit
-		@hand.move_to_next_spot
+		stand unless @spot.busted?
 	end
 
 	def hit
@@ -28,11 +28,13 @@ class PlayerActionsService
 			GradingService.new(@spot).grade!
 			@hand.move_to_next_spot
 		end
+		stand if @spot.hand_value == 21 && !@spot.double?
 		@spot.save!
 	end
 
 	def stand
 		@hand.move_to_next_spot
+		@spot
 	end
 
 	def split

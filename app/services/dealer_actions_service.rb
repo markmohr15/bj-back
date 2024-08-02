@@ -8,7 +8,7 @@ class DealerActionsService
 	end
 
 	def perform
-		return unless @spots.any?
+		return @hand unless @spots.any?
 
 		while should_hit?
 			hit
@@ -16,6 +16,7 @@ class DealerActionsService
 
 		@hand.save! if @hand.dealer_cards_changed?
 		grade
+		@hand
 	end
 
 	private

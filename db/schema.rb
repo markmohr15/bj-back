@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_17_210007) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_31_175547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,11 +59,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_17_210007) do
     t.bigint "hand_id"
     t.text "player_cards"
     t.integer "wager"
-    t.boolean "split", default: false
-    t.boolean "double", default: false
+    t.boolean "split"
+    t.boolean "double"
     t.integer "result"
     t.integer "profit", default: 0
-    t.boolean "insurance", default: false
+    t.boolean "insurance"
     t.integer "spot_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

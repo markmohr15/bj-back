@@ -1,16 +1,17 @@
 class DealingService
   include SharedServiceMethods
 
-  def initialize(session)
+  def initialize(session, spots = nil)
     @session = session
     @shoe = session.active_shoe
-    @spots = session.spots.active
+    @spots = spots || session.spots.active
   end
 
   def perform
     ensure_valid_shoe
     @hand = deal_new_hand
     initial_check_for_blackjack
+    @hand
   end
 
   private
@@ -55,6 +56,7 @@ class DealingService
   def initial_check_for_dealer_blackjack
     return unless @hand.ten_ace?
     ActiveRecord::Base.transaction do
+      @hand.update! current_spot: nil
       @spots.each do |spot|
         GradingService.new(spot).grade!
       end

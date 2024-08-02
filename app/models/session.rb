@@ -40,8 +40,18 @@ class Session < ApplicationRecord
   validates :num_spots, presence: true, numericality: {
     greater_than_or_equal_to: 1, less_than_or_equal_to: 6 }
 
+  scope :active, -> { where end_time: nil }
+
   def active_shoe
     shoes.active.first || ShoeCreationService.new(self).perform
+  end
+
+  def profit_cents
+    spots.sum(:profit)
+  end
+
+  def profit_dollars
+    profit_cents / 100.0
   end
 
 end

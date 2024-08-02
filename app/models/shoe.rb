@@ -31,7 +31,7 @@ class Shoe < ApplicationRecord
 
   validates_presence_of :client_seed, :shuffle_hash
 
-  scope :active, -> { where(active: true) }
+  scope :active, -> { where active: true }
 
   def set_penetration_card
     penetration = session.penetration * 0.01

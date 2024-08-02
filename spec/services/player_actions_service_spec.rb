@@ -18,8 +18,8 @@ RSpec.describe PlayerActionsService do
       expect(spot.hand).to receive(:move_to_next_spot)
       
       expect {
-        service.double_down
-      }.to change { spot.double }.from(false).to(true)
+        service.double
+      }.to change { spot.double }.from(nil).to(true)
     end
   end
 
@@ -64,7 +64,7 @@ RSpec.describe PlayerActionsService do
     it 'marks the original spot as split' do
       expect {
         service.split
-      }.to change { spot.reload.split }.from(false).to(true)
+      }.to change { spot.reload.split }.from(nil).to(true)
     end
   end
 end

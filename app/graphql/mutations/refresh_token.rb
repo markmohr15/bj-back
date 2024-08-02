@@ -3,7 +3,7 @@ module Mutations
     field :token, String, null: true
     field :errors, [String], null: false
 
-		def refresh_token
+		def resolve
 		  if context[:current_user]
 		    token = context[:current_user].generate_jwt
         {

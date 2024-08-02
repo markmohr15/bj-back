@@ -13,7 +13,7 @@ class GradingService
 		elsif @hand.blackjack?
 			lost
 		elsif @spot.blackjack?
-			bj_won
+			blackjack
 		elsif @spot.busted?
 			lost
 		elsif @hand.busted?
@@ -47,8 +47,8 @@ class GradingService
 		@spot.update! result: "push"
 	end
 
-	def bj_won
-		@spot.update! result: "win", profit: @spot.profit + wager_amount * blackjack_multiplier
+	def blackjack
+		@spot.update! result: "bj", profit: @spot.profit + wager_amount * blackjack_multiplier
 	end
 
 	def double_multiplier

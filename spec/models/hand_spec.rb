@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: hands
+#
+#  id              :bigint           not null, primary key
+#  dealer_cards    :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  current_spot_id :bigint
+#  shoe_id         :bigint           not null
+#
+# Indexes
+#
+#  index_hands_on_current_spot_id  (current_spot_id)
+#  index_hands_on_shoe_id          (shoe_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (current_spot_id => spots.id)
+#  fk_rails_...  (shoe_id => shoes.id)
+#
 require 'rails_helper'
 
 RSpec.describe Hand, type: :model do
@@ -79,13 +100,6 @@ RSpec.describe Hand, type: :model do
 
       it 'sets current_spot to nil' do
         expect { hand.move_to_next_spot }.to change { hand.reload.current_spot }.from(played_spot).to(nil)
-      end
-
-      it 'triggers dealer actions' do
-        dealer_actions_service = instance_double(DealerActionsService)
-        expect(DealerActionsService).to receive(:new).with(hand).and_return(dealer_actions_service)
-        expect(dealer_actions_service).to receive(:perform)
-        hand.move_to_next_spot
       end
     end
   end

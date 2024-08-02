@@ -14,6 +14,7 @@ class IntermediateActionsService
       end
       @hand.update current_spot: nil if @hand.blackjack?
     end
+    @hand
 	end
 
 	private

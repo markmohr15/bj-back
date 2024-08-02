@@ -27,6 +27,7 @@ class Hand < ApplicationRecord
   belongs_to :current_spot, class_name: "Spot", optional: true
   has_many :spots, dependent: :destroy
   has_many :ordered_spots, -> { ordered_by_spot_number }, class_name: "Spot"
+  has_many :users, through: :spots
 
   serialize :dealer_cards, coder: JSON
 
@@ -36,7 +37,10 @@ class Hand < ApplicationRecord
 
   def move_to_next_spot
     update! current_spot: find_next_spot
-    DealerActionsService.new(self).perform if current_spot.nil?
+  end
+
+  def shown_dealer_cards
+    current_spot.nil? ? dealer_cards : [dealer_cards[0]]
   end
 
   private

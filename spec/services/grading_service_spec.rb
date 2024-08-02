@@ -17,7 +17,7 @@ RSpec.describe GradingService do
 
       it 'handles player blackjack vs dealer non-blackjack' do
         allow(hand).to receive(:blackjack?).and_return(false)
-        expect { service.grade! }.to change { spot.reload.result }.to('win')
+        expect { service.grade! }.to change { spot.reload.result }.to('bj')
       end
     end
 

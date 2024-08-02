@@ -3,13 +3,13 @@
 # Table name: spots
 #
 #  id               :bigint           not null, primary key
-#  double           :boolean          default(FALSE)
-#  insurance        :boolean          default(FALSE)
+#  double           :boolean
+#  insurance        :boolean
 #  insurance_result :integer
 #  player_cards     :text
 #  profit           :integer          default(0)
 #  result           :integer
-#  split            :boolean          default(FALSE)
+#  split            :boolean
 #  spot_number      :integer
 #  wager            :integer
 #  created_at       :datetime         not null
@@ -50,7 +50,7 @@ class Spot < ApplicationRecord
 
   after_create :set_session_start_time
 
-  enum result: { win: 0, loss: 1, push: 2, split_hand: 3 }
+  enum result: { win: 0, loss: 1, push: 2, split_hand: 3, bj: 4 }
   enum insurance_result: { ins_win: 0, ins_loss: 1 }
   
   validates :wager, presence: true, numericality: { greater_than: 0 }
@@ -69,5 +69,13 @@ class Spot < ApplicationRecord
 
   def set_session_start_time
     session.update!(start_time: DateTime.now) if session.start_time.nil?
+  end
+
+  def wager_in_dollars
+    wager.to_f / 100
+  end
+
+  def profit_in_dollars
+    profit.to_f / 100
   end
 end

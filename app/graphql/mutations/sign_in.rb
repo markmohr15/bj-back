@@ -20,7 +20,7 @@ module Mutations
         {
           user: nil,
           token: nil,
-          errors: user.errors.full_messages
+          errors: 'Unable to authenticate'
         }      
       end
     end
