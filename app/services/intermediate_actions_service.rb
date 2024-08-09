@@ -25,7 +25,7 @@ class IntermediateActionsService
 			spot.update! insurance_result: "ins_win", profit: spot.wager
 		else
 			spot.update! insurance_result: "ins_loss", 
-									 profit: spot.wager / 2.0
+									 profit: spot.wager / -2.0
 		end
 	end
 

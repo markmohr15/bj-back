@@ -14,19 +14,29 @@ module Types
     field :spots, [Types::SpotType], null: false
     field :hands, [Types::HandType], null: false
     field :active_shoe, Types::ShoeType, null: true
-    field :hands_played, Integer, null: false
-    field :profit_cents, Float, null: false
+    field :shoe_count, Integer, null: false
+    field :hand_count, Integer, null: false
+    field :spot_count, Integer, null: false
+    field :profit, Float, null: false
 
     def active_shoe
       object.active_shoe
     end
 
-    def hands_played
-      object.spots.count
+    def profit
+      object.profit_dollars
     end
 
-    def profit_cents
-      object.profit_cents
+    def shoe_count
+      object.shoes.count
+    end
+
+    def hand_count
+      object.hands.count
+    end
+
+    def spot_count
+      object.spots.count
     end
   end
 end

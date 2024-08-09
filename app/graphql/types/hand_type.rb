@@ -8,7 +8,8 @@ module Types
     field :spots, [Types::SpotType], null: false
     field :ordered_spots, [Types::SpotType], null: false
     field :insurance_offered, Boolean, null: false
-    
+    field :session, Types::SessionType, null: false
+
     def ordered_spots
       object.ordered_spots
     end

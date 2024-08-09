@@ -1,4 +1,3 @@
-# app/graphql/mutations/deal_hand.rb
 module Mutations
   class DealHand < BaseMutation
     argument :session_id, ID, required: true

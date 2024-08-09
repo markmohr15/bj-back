@@ -25,6 +25,7 @@ class Hand < ApplicationRecord
 
   belongs_to :shoe
   belongs_to :current_spot, class_name: "Spot", optional: true
+  has_one :session, through: :shoe
   has_many :spots, dependent: :destroy
   has_many :ordered_spots, -> { ordered_by_spot_number }, class_name: "Spot"
   has_many :users, through: :spots

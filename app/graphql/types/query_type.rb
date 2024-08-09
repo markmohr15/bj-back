@@ -37,7 +37,9 @@ module Types
     field :current_user_sessions, [SessionType], null: false
 
     def current_user_sessions
-      context[:current_user].sessions
+      authorized_resolve do |user|
+        user.sessions
+      end
     end
 
     field :active_hand, HandType, null: true do
@@ -45,21 +47,26 @@ module Types
     end
 
     def active_hand(session_id:)
-      session = Session.find(session_id)
-      session.active_shoe.hands.last
+      authorized_resolve do |user|
+        session = user.sessions.find session_id
+        session.active_shoe.hands.last
+      end
     end
 
     field :active_session, SessionType, null: true
 
     def active_session
-      context[:current_user].spots&.last&.session
+      authorized_resolve do |user|
+        user.spots&.last&.session
+      end
     end
 
     field :last_ten_sessions, [Types::SessionType], null: false, description: "Returns the user's last 10 sessions"
 
     def last_ten_sessions
-      return [] unless context[:current_user]
-      context[:current_user].sessions.order(created_at: :desc).limit(10)
+      authorized_resolve do |user|
+        user.sessions.order(created_at: :desc).limit(10)
+      end    
     end
     
   end

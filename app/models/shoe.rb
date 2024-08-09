@@ -44,4 +44,8 @@ class Shoe < ApplicationRecord
     self.update! current_card_index: current_card_index + 1
     card
   end
+
+  def remaining_cards
+    cards.length - current_card_index
+  end
 end

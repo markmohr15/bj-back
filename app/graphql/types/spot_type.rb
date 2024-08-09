@@ -4,7 +4,7 @@ module Types
     field :wager, Float, null: false, method: :wager_in_dollars
     field :player_cards, [String], null: true
     field :result, String, null: true
-    field :profit, Integer, null: false, method: :profit_in_dollars
+    field :profit, Float, null: false, method: :profit_in_dollars
     field :double, Boolean, null: true
     field :insurance, Boolean, null: true
     field :insurance_result, String, null: true
@@ -17,6 +17,7 @@ module Types
     field :sub_spots, [Types::SpotType], null: false
     field :split_offered, Boolean, null: false
     field :is_blackjack, Boolean, null: false
+    field :is_bust, Boolean, null: false
 
     def split_offered
       object.split_offered?
@@ -25,5 +26,10 @@ module Types
     def is_blackjack
       object.blackjack?
     end
+
+    def is_bust
+      object.busted?
+    end
+
   end
 end

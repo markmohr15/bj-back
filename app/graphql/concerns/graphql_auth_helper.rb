@@ -1,4 +1,3 @@
-# app/graphql/concerns/graphql_auth_helper.rb
 module GraphqlAuthHelper
   extend ActiveSupport::Concern
 

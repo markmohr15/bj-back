@@ -20,6 +20,7 @@ class PlayerActionsService
 		@spot.double = true
 		hit
 		stand unless @spot.busted?
+		@spot
 	end
 
 	def hit
